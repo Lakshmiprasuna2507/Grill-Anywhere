@@ -14,7 +14,7 @@ import { LoginComponent } from "./login/login.component";
 
 const routes: Routes = [
   {
-    path: 'home',
+    path: '',
     component: HomeComponent
   },
   {

@@ -4,13 +4,17 @@ import { error } from '@angular/compiler/src/util';
 import { Observable } from 'rxjs';
 import { Console } from '@angular/core/src/console';
 
+
 @Injectable({
   providedIn: 'root'
 })
 export class GrillerService {
 
   private _url: string = 'http://localhost:8080/grillAnywhere/griller';
+  private _url1:string='http://localhost:8080/grillAnywhere/api/user/me';
   private grill;
+  private data:any
+  private user:any
   constructor(private http: HttpClient) { }
 
   saveGriller(formData: FormData): Observable<any> {
@@ -29,11 +33,44 @@ export class GrillerService {
 
     })
   }
+  getUserName( callback) {
+  
+    this.http.get(`${this._url1}`).subscribe(data => {
+      callback(data)
+      this.data=data
+      console.log(this.data)
+    }, error => {
 
+      console.log(error+'unable to process request')
+
+    });
+  }
+
+  
 
   fetchOwner(user, callback) {
    // console.log(user.grillName);
     this.http.get(`${this._url}/payment/${user.grillId}`).subscribe(data => {
+      callback(data)
+      console.log(data)
+    }, error => {
+
+      console.log('unable to process request')
+
+    })
+  }
+  findAutomatic(id,type,callback){
+    this.http.get(this._url + "/"+id+"/"+type).subscribe(data => {
+      callback(data)
+      console.log(data)
+    }, error => {
+
+      console.log('unable to process request')
+
+    })
+  }
+  findLocation(id,city,callback){
+    this.http.get(this._url + "/"+id+"/city/"+city).subscribe(data => {
       callback(data)
       console.log(data)
     }, error => {
@@ -126,7 +163,17 @@ export class GrillerService {
   }
 
 
-  getUser(callback) {
+  getUser(id,callback) {
+    this.http.get(this._url+"/"+id).subscribe(data => {
+      callback(data)
+      console.log(data)
+    }, error => {
+
+      console.log('unable to process request')
+
+    })
+  }
+  getGrillers(callback) {
     this.http.get(this._url).subscribe(data => {
       callback(data)
       console.log(data)
@@ -136,8 +183,9 @@ export class GrillerService {
 
     })
   }
-  getUserByFlag(callback) {
-    this.http.get(this._url+"/byflag").subscribe(data => {
+  
+  getUserByFlag(id,callback) {
+    this.http.get(this._url+"/byflag/"+id).subscribe(data => {
       callback(data)
       console.log(data)
     }, error => {

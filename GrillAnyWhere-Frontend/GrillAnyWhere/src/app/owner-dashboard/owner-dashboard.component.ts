@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute,Router, RouterLink } from "@angular/router";
 import { ReactiveFormsModule, FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { GrillerService } from "../griller.service";
+import { UserService } from "../_services/user.service";
 import * as $ from 'jquery'
 import { HttpClient } from '@angular/common/http';
 import { AuthenticationService } from '../_services/authentication.service';
+import { User } from '../_models/user';
 
 
 
@@ -15,33 +17,50 @@ import { AuthenticationService } from '../_services/authentication.service';
 })
 export class OwnerDashboardComponent implements OnInit {
   private userForm:FormGroup
+  private updateForm:FormGroup
   private user:any
   public errorMessage:string
   private isSaved:boolean
-  private users:any[]
+  private users:any
   private grillers:any[]
   public grillerFile:any=File;
-  private grill:any
+  grill:any
   rentedGrills:any
   byType
   angular: any;
+  id:any
   private delConfirm:boolean;
   owner;
+  id1
+  private renter:any
 
   constructor(private builder:FormBuilder,private service:GrillerService,private router : Router,
-    private httpClient:HttpClient,private authenticationService:AuthenticationService) { 
+    private httpClient:HttpClient,private authenticationService:AuthenticationService,
+    private userService:UserService) { 
     this.buildForm()
   }
 
   ngOnInit() {
-    this.onloadFun()
+    
+    this.currentUserDetails();
    
-    this.owner=sessionStorage.getItem('owner');
+   
        
   }
 
   buildForm() {
     this.userForm = this.builder.group({
+      grillName: ['',Validators.required],
+
+      grillerType: ['',Validators.required],
+      location: ['',Validators.required],
+      grillerDescriptions: ['',Validators.required],
+      price: ['',Validators.required],
+      //grillImage:['',Validators.required],
+      grillImage: ['']
+
+    }),
+    this.updateForm = this.builder.group({
       grillName: ['',Validators.required],
 
       grillerType: ['',Validators.required],
@@ -68,7 +87,7 @@ export class OwnerDashboardComponent implements OnInit {
    formData.append('price',this.userForm.get('price').value)
    formData.append('location',this.userForm.get('location').value)
     formData.append('grillerDescriptions',this.userForm.get('grillerDescriptions').value)
-    formData.append('owner',this.owner)
+    formData.append('ownerId',this.users.id)
 
    this.httpClient.post<any>('http://localhost:8080/grillAnywhere/griller', formData).subscribe(
      (res) => console.log(res),
@@ -89,7 +108,7 @@ export class OwnerDashboardComponent implements OnInit {
           console.log('Unable to Process request')
 
         }else{
-          //window.location.reload();
+          window.location.reload();
           this.onloadFun()
 
           this.userForm.reset();
@@ -103,8 +122,6 @@ export class OwnerDashboardComponent implements OnInit {
       this.errorMessage = 'Please verify your errors'
     }
   }
-
-
   updateGriller(id){
     console.log("hello"+id)
     const formData = new FormData();
@@ -114,7 +131,7 @@ export class OwnerDashboardComponent implements OnInit {
     formData.append('price',this.userForm.get('price').value)
     formData.append('location',this.userForm.get('location').value)
      formData.append('grillerDescriptions',this.userForm.get('grillerDescriptions').value)
-     formData.append('owner',this.owner)
+     formData.append('ownerId',this.grill.ownerId)
  
     this.httpClient.put<any>('http://localhost:8080/grillAnywhere/griller/'+id, formData).subscribe(
       (res) => console.log(res),
@@ -126,13 +143,27 @@ export class OwnerDashboardComponent implements OnInit {
    window.location.reload()
     
   }
+  
+
+ 
+currentUserDetails(){
+this.service.getUserName(response=>{
+this.users=response
+console.log(this.users)
+console.log(this.users.id)
+this.id=this.users.id
+this.onloadFun()
+})
+
+  }
 
 
 
   storeId(grillId){
    this.service.getGrillById(grillId,data=>{
     this.grill=data
-    console.log(data.grillName)
+    this.id1=this.grill.id
+    console.log(data)
     });
   }
 
@@ -148,28 +179,34 @@ export class OwnerDashboardComponent implements OnInit {
 
   updateFlag(grillId){
     
+    this.delConfirm=confirm("Are You Sure this griller is returned .... ?");
 
+    if(this.delConfirm==true){
     
       this.service.updateFlag(grillId,data=>{
       this.onloadFun()
       window.location.reload();
      
   })
+}
   }
   logout() {
     this.authenticationService.logout();
-    this.router.navigate(['./home'])
+    this.router.navigate(['./'])
   }
 
   onloadFun(){
-    this.service.getUser(success=>{
+  
+    this.service.getUser(this.id,success=>{
       this.grillers=success;
     });
     this.grill="";
+   
     this.rent();
   }
+  
 rent(){
-  this.service.getUserByFlag(data=>{
+  this.service.getUserByFlag(this.id,data=>{
     this.rentedGrills=data;
     console.log(this.rentedGrills)
   })
@@ -188,11 +225,83 @@ rent(){
         this.onloadFun()
        
       }else{
-        this.service.findByGrillerType(this.user,success=>{
+        this.service.findAutomatic(this.id,this.byType,success=>{
           this.grillers=success;
         });
       }
   }
+  dropDownFilter(event){
+    console.log("in dropDown: "+event);
+    if(event!='Choose City'){
+      this.user={
+        location:event
+        }
+        
+        if(1){
+          
+         this.service.findLocation(this.id,event,success=>{
+           this.grillers=success;
+         });
+    }
+    }
+    else{
+      this.service.getUser(this.id,success=>{
+        this.grillers=success;
+        console.log("in home "+this.grillers);
+   });
+    
+    }
+    
+}
+
+
+
+
+  byType1(event){
+    this.byType=event;
+    if(event!='Choose type'){
+  
+    
+    if(1){
+      
+     this.service.findAutomatic(this.id,this.byType,success=>{
+       this.grillers=success;
+     });
+    
+    }
+  }
+  else{
+    this.service.getUser(this.id,success=>{
+      this.grillers=success;
+      console.log("in home "+this.grillers);
+ });
+  
+  }
+  }
+
+ 
+
+  toggleAllGriller(){
+    document.location.reload();
+  }
+
+  toggleAllProduct(){
+    
+
+    this.renter=sessionStorage.getItem('renter');
+    this.user={
+      grillerType:this.renter
+      }
+      
+      if(1){
+        
+       this.service.findGrillerByRenter(this.user,success1=>{
+         this.grillers=success1;
+         console.log(this.grillers);
+       });
+      }
+  }
+  
   
  
   

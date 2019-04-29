@@ -98,9 +98,34 @@ public class GrillerController {
 	public HttpEntity<List<Griller>> getEmployee(@PathVariable String grillerType, HttpSession session) {
 
 		String grillerFlag="A";
-		return new ResponseEntity<List<Griller>>(grillService.listByGrillerType(grillerType,grillerFlag), HttpStatus.OK);
+		return new ResponseEntity<List<Griller>>(grillService.listByGrillerType(grillerType,grillerFlag), HttpStatus.OK);}
+	
+	
+	
+	@CrossOrigin(origins = "*")
+	@GetMapping(value="/{ownerId}")
+	public HttpEntity<List<Griller>> listGrillers(HttpSession session,@PathVariable int ownerId) {
+
+		String grillerFlag="A";
+		return new ResponseEntity<List<Griller>>(grillService.list(grillerFlag,ownerId), HttpStatus.OK);
 	}
 	
+	
+	@CrossOrigin(origins = "*")
+	@GetMapping(value="/{ownerId}/{type}")
+	public HttpEntity<List<Griller>> listGriller(HttpSession session,@PathVariable int ownerId,@PathVariable String type) {
+
+		String grillerFlag="A";
+		return new ResponseEntity<List<Griller>>(grillService.list(grillerFlag,ownerId,type), HttpStatus.OK);
+	}
+	
+	@CrossOrigin(origins = "*")
+	@GetMapping(value="/{ownerId}/city/{city}")
+	public HttpEntity<List<Griller>> listGrillerByCity(HttpSession session,@PathVariable int ownerId,@PathVariable String city) {
+
+		String grillerFlag="A";
+		return new ResponseEntity<List<Griller>>(grillService.listByCity(grillerFlag,ownerId,city), HttpStatus.OK);
+	}
 	
 	
 	@CrossOrigin(origins = "*")
@@ -129,11 +154,11 @@ public class GrillerController {
 	}
 	
 	@CrossOrigin(origins = "*")
-	@GetMapping(value="byflag")
-	public HttpEntity<List<Griller>> listGrillersType(HttpSession session) {
+	@GetMapping(value="byflag/{ownerID}")
+	public HttpEntity<List<Griller>> listGrillersType(@PathVariable int ownerID,HttpSession session) {
 
 		String grillerFlag="R";
-		return new ResponseEntity<List<Griller>>(grillService.list(grillerFlag), HttpStatus.OK);
+		return new ResponseEntity<List<Griller>>(grillService.list(grillerFlag,ownerID), HttpStatus.OK);
 	}
 
 	@CrossOrigin(origins = "*")

@@ -92,7 +92,7 @@ export class HomeComponent implements OnInit {
   
 
   onloadFun(){
-    this.service.getUser(success=>{
+    this.service.getGrillers(success=>{
          this.grillers=success;
          console.log("in home "+this.grillers);
     });
@@ -159,7 +159,7 @@ export class HomeComponent implements OnInit {
       }
       }
       else{
-        this.service.getUser(success=>{
+        this.service.getGrillers(success=>{
           this.grillers=success;
           console.log("in home "+this.grillers);
      });

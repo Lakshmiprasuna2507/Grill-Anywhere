@@ -19,26 +19,11 @@ public class Griller {
 	private Double price;
 	private String location;
 	private String grillerFlag="A";
-	private String owner;
-	private String renter;
+	private int ownerId;
+	
 
 	
-	public String getOwner() {
-		return owner;
-	}
-
-	public void setOwner(String owner) {
-		this.owner = owner;
-	}
-
-	public String getRenter() {
-		return renter;
-	}
-
-	public void setRenter(String renter) {
-		this.renter = renter;
-	}
-
+	
 	private String grillImage;
 	 
 	public int getGrillId() {
@@ -101,6 +86,14 @@ public class Griller {
 
 	public void setGrillerFlag(String grillerFlag) {
 		this.grillerFlag = grillerFlag;
+	}
+
+	public int getOwnerId() {
+		return ownerId;
+	}
+
+	public void setOwnerId(int ownerId) {
+		this.ownerId = ownerId;
 	}
 	 
 }

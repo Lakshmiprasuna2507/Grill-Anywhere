@@ -31,8 +31,13 @@ public interface GrillerRepositoryMySQL extends CrudRepository<Griller,Integer>{
     @Modifying
 	@Query("update Griller g set g.grillerFlag = :grillerFlag where g.grillId like:grillId")
 	public Integer changeFlag(@Param("grillId") Integer grillId,  @Param("grillerFlag")String grillerFlag);
+	@Query("Select g from Griller g where g.grillerFlag like:grillerFlag and g.ownerId like:id")
+	public List<Griller> findByGrillerFlagAndOwnerID(String grillerFlag,@Param("id") int id);
+	@Query("Select g from Griller g where g.grillerFlag like:grillerFlag and g.ownerId like:id and g.grillerType like:type")
+	public List<Griller> findByGrillerFlagAndOwnerIDAndGrillerType(String grillerFlag, int id, String type);
 	
-
+	@Query("Select g from Griller g where g.grillerFlag like:grillerFlag and g.ownerId like:id and g.location like:city")
+	public List<Griller> findByGrillerFlagAndOwnerIDAndLocation(String grillerFlag, int id, String city);
 
 	
 	

@@ -114,7 +114,7 @@
 div.container-fluid{
   margin-top: -3.3%;
   height: 105vh;
-  background-image: url('../../assets/images/image.png');
+  background-image: url('../../assets/image/image.png');
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;

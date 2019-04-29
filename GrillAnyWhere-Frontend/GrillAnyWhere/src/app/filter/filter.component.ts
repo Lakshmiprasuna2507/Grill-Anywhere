@@ -99,7 +99,7 @@ export class FilterComponent implements OnInit {
 
 
   onLoad(){
-    this.service.getUser(success=>{
+    this.service.getGrillers(success=>{
       this.grillers=success;
     })
   }

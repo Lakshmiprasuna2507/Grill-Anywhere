@@ -52,6 +52,10 @@ return grillerRepositoryCustom.updateFlag(id);
 		grillerRepository.deleteById(grillID);
 	}
 
+	public List<Griller> list(String grillerFlag,int id) {		
+
+		return (List<Griller>) grillerRepository.findByGrillerFlagAndOwnerID(grillerFlag,id);	
+	}
 	public List<Griller> list(String grillerFlag) {		
 
 		return (List<Griller>) grillerRepository.findByGrillerFlag(grillerFlag);	
@@ -105,6 +109,18 @@ return grillerRepositoryCustom.updateFlag(id);
 		grill.setGrillerFlag(grillerFlag);
 		return grillerRepository.save(grill);
 	}
+
+	public List<Griller> list(String grillerFlag, int ownerId, String type) {
+		// TODO Auto-generated method stub
+		return (List<Griller>) grillerRepository.findByGrillerFlagAndOwnerIDAndGrillerType(grillerFlag,ownerId,type);	
+		
+	}
+	public List<Griller> listByCity(String grillerFlag, int ownerId, String city) {
+		// TODO Auto-generated method stub
+		return (List<Griller>) grillerRepository.findByGrillerFlagAndOwnerIDAndLocation(grillerFlag,ownerId,city);	
+		
+	}
+
 
 	
 

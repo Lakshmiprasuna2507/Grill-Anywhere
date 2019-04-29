@@ -36,7 +36,7 @@ export class ManualComponent implements OnInit {
     
     onLoad(){
       this.user={
-        grillerType:"Manual"
+        grillerType:"ManualGriller"
         }
       this.service.findByGrillerType(this.user,success=>{
         this.grillers=success;

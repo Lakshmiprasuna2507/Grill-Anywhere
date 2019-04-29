@@ -68,7 +68,7 @@ export class RenterDashboardComponent implements OnInit {
   }
 
   onloadFun(){
-    this.service.getUser(success=>{
+    this.service.getGrillers(success=>{
          this.grillers=success;
          console.log("in home "+this.grillers);
     });
@@ -88,6 +88,7 @@ export class RenterDashboardComponent implements OnInit {
 
     
   }
+  
 
   rentFunc(){
     console.log("into rent func");
@@ -102,7 +103,7 @@ export class RenterDashboardComponent implements OnInit {
   }
   logout() {
     this.authenticationService.logout();
-    this.router.navigate(['./home']);
+    this.router.navigate(['./']);
   }
 
   dropDownFilter(event){
@@ -120,7 +121,7 @@ export class RenterDashboardComponent implements OnInit {
     }
     }
     else{
-      this.service.getUser(success=>{
+      this.service.getGrillers(success=>{
         this.grillers=success;
         console.log("in home "+this.grillers);
    });
@@ -134,6 +135,7 @@ searchBarFilter(event){
   //var text = document.getElementsByName("searchbar-input").value;
   console.log("in searchBar: "+event);
   this.byType=event;
+  
   this.user={
     grillName:this.byType
     }
@@ -147,10 +149,12 @@ searchBarFilter(event){
       this.grillers=success;
     });
     }
+  
   }
 
   byType1(event){
     this.byType=event;
+    if(event!='Choose Type'){
   this.user={
     grillerType:this.byType
     }
@@ -162,6 +166,14 @@ searchBarFilter(event){
      });
     
     }
+  }
+  else{
+    this.service.getGrillers(success=>{
+      this.grillers=success;
+      console.log("in home "+this.grillers);
+ });
+  
+  }
   }
 
  
