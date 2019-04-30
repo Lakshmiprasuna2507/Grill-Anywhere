@@ -1,16 +1,17 @@
 package com.ibm.grill.app.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ibm.grill.app.model.Griller;
 import com.ibm.grill.app.model.Purchase;
+import com.ibm.grill.app.model.User;
 import com.ibm.grill.app.repository.GrillerRepositoryImpl;
 import com.ibm.grill.app.repository.GrillerRepositoryMySQL;
 import com.ibm.grill.app.repository.PurchaseRepository;
+import com.ibm.grill.app.repository.UserRepository;
 
 
 
@@ -23,6 +24,9 @@ public class GrillerService {
 	private GrillerRepositoryMySQL grillerRepository;
 	@Autowired
 	private GrillerRepositoryImpl grillerRepositoryCustom;
+	
+	@Autowired
+	private UserRepository userRepository;
 	
 	@Autowired
 	private PurchaseRepository purchaseRepository;
@@ -119,6 +123,11 @@ return grillerRepositoryCustom.updateFlag(id);
 		// TODO Auto-generated method stub
 		return (List<Griller>) grillerRepository.findByGrillerFlagAndOwnerIDAndLocation(grillerFlag,ownerId,city);	
 		
+	}
+
+	public User getOwnerData(long id) {
+		// TODO Auto-generated method stub
+		return userRepository.findById(id).get();
 	}
 
 

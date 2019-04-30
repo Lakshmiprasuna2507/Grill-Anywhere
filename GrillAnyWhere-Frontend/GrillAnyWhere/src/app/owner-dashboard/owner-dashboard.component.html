@@ -26,8 +26,8 @@
                   <option value="Hyderabad">Hyderabad</option>
                 </select>
               </span>&nbsp;
-          </li>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<li>
-              <span id="filter">
+          </li>  &nbsp;&nbsp;<li>
+              <!-- <span id="filter">
                 <select #dropDown2 id="dropDown-input2" (change)="byType1(dropDown2.value)" class="form-control">
                     <option>Choose type</option>
                     <option value="AutomaticGriller">Automatic Griller</option>
@@ -36,7 +36,7 @@
                   </select>
                 </span>
               
-            </li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
          
             </ul>
             
@@ -44,7 +44,7 @@
 
 
 
-        <li>
+        <!-- <li>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav ml-auto">
               <li class="searchbar">
@@ -61,7 +61,7 @@
             </ul>
           </div>
 
-        </li>&nbsp;&nbsp;
+        </li>&nbsp;&nbsp; -->
 
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
@@ -140,7 +140,7 @@
                         <span class="text-primary">.</span>&nbsp;
                         <span class="text-primary">Min 4 hrs</span>&nbsp;
                         <span class="text-primary">.</span>&nbsp;
-                        <span class="text-primary">{{success.price}}$</span>
+                        <span class="text-primary">INR:{{success.price}}</span>
 
 
                       </div>
@@ -196,7 +196,7 @@
                         <span class="text-primary">.</span>&nbsp;
                         <span class="text-success">{{success.grillerType}}</span>&nbsp;
                         <span class="text-primary">.</span>&nbsp;
-                        <span class="text-danger">{{success.price}}$</span>
+                        <span class="text-danger">{{success.price}}rs</span>
 
 
                       </div>

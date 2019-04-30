@@ -1,3 +1,17 @@
+/* .setBody{
+  background-image: url('../../assets/images/dashboardImage.jpg');
+  height: 1000px;
+ 
+} */
+
+.img-move{
+  display: inline-block;
+}
+.scroll{
+  margin-left: 50px;
+  width: 1500px;
+}
+
 .navbar-login
 {
     width: 305px;

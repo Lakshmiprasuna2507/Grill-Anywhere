@@ -1,8 +1,5 @@
 package com.ibm.grill.app.controller;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -12,19 +9,14 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Validator;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,18 +24,17 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.ibm.grill.app.exception.LoginException;
 import com.ibm.grill.app.exception.ValidationException;
 import com.ibm.grill.app.model.ErrorDetails;
 import com.ibm.grill.app.model.Griller;
 import com.ibm.grill.app.model.Purchase;
+import com.ibm.grill.app.model.User;
 import com.ibm.grill.app.service.GrillerService;
 
 /**
@@ -136,6 +127,8 @@ public class GrillerController {
 		return new ResponseEntity<List<Griller>>(grillService.list(grillerFlag), HttpStatus.OK);
 	}
 	
+	
+	
 	//list rented griller
 	@CrossOrigin(origins = "*")
 	@GetMapping("/rentedGriller")
@@ -167,6 +160,15 @@ public class GrillerController {
 
 		return new ResponseEntity<Griller>((Griller)grillService.get(id), HttpStatus.OK);
 	}
+	
+	@CrossOrigin(origins = "*")
+	@GetMapping("ownerDetails/{id}")
+	public HttpEntity<User> getOwnerData(@PathVariable long id, HttpSession session) {
+
+		return new ResponseEntity<User>((User)grillService.getOwnerData(id), HttpStatus.OK);
+	}
+	
+		
 
 	@CrossOrigin(origins = "*")
 	@PutMapping("/{id}")

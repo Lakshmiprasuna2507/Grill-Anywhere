@@ -265,9 +265,9 @@
                           <div class="input-group-text"><em class="fas fa-address-book"></em></div>
                           </div>
                 <input type='number' class='form-control' formControlName="phone"
-                  [ngClass]="{ 'is-invalid': submitted && f.phone.errors }" placeholder="Phone" pattern=".{10,11}" title="Phone min 10 and max 11"/>
+                  [ngClass]="{ 'is-invalid': submitted && f.phone.errors }" placeholder="Mobile Number" pattern=".{10,11}" title="Phone min 10 and max 11"/>
                 <div *ngIf="submitted && f.phone.errors" class="invalid-feedback">
-                  <div *ngIf="f.phone.errors.required">Phone Number is required</div>
+                  <div *ngIf="f.phone.errors.required">Mobile Number is required</div>
                   <div *ngIf="f.phone.errors.minlength">Give Currect Phone Number</div>
                   <div *ngIf="f.phone.errors.maxlength">Give Currect Phone Number</div>
                 </div>

@@ -174,6 +174,7 @@ export class GrillerService {
     })
   }
   getGrillers(callback) {
+    console.log("in getGriller service");
     this.http.get(this._url).subscribe(data => {
       callback(data)
       console.log(data)
@@ -226,7 +227,16 @@ export class GrillerService {
 
     })
   }
+  getOwnerDetails(id,callback) {
+    this.http.get(this._url + "/ownerDetails/"+id).subscribe(data => {
+      callback(data)
+      console.log(data)
+    }, error => {
 
+      console.log('unable to process request')
+
+    })
+  }
 
   getGrillerAutomatic(callback) {
     this.http.get(this._url + "/byGrillerType/AutomaticGriller").subscribe(data => {

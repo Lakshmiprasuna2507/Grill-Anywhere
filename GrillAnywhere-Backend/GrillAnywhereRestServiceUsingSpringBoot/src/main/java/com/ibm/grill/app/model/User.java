@@ -139,7 +139,7 @@ public class User extends DateAudit {
    // @Size(max = 40)
     private String firstname;
     
-   // @Size(max = 40)
+    @Size
     private String lastname;
     
     @NotBlank

@@ -18,6 +18,7 @@
 </head>
 
 <body>
+  <div class="fixed-top">
   <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
       
     <div class="container">
@@ -33,18 +34,18 @@
           
          
          
-          <li class="searchbar">
+          <!-- <li class="searchbar">
             <input type="text" #search id="searchbar-input" (keyup)="searchBarFilter(search.value)" >
             <i class="fa fa-search" id="searchbar-icon" aria-hidden="true"></i>
             <i class="fa fa-times" id="searchbar-cross" aria-hidden="true"></i>
-          </li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          </li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
           <li>
-              <select #dropDown id="dropDown-input" (change)="dropDownFilter(dropDown.value)">
+              <!-- <select #dropDown id="dropDown-input" (change)="dropDownFilter(dropDown.value)">
                   <option>Choose City</option>
                   <option value="Bangalore">Bangalore</option>
                   <option value="Chennai">Chennai</option>
                   <option value="Mumbai">Mumbai</option>
-                </select>
+                </select> -->
           </li>
           <li>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -59,6 +60,7 @@
       </div>
     </div>
   </nav>
+</div>
 
   <!-- SHOWCASE SLIDER -->
   <section id="showcase">
@@ -174,6 +176,25 @@
               </div>
           </div>
         </span>
+
+        <div class="col-md-4">
+            <img class="pic-1" src="assets/images/griller5.jpg" >
+        </div>
+        <div class="col-md-4">
+            <img class="pic-1" src="assets/images/griller7.jpg" >
+        </div>
+        <div class="col-md-4">
+            <img class="pic-1" src="assets/images/griller8.jpg" >
+        </div>
+        <div class="col-md-4">
+            <img class="pic-1" src="assets/images/griller9.jpg" >
+        </div>
+        <div class="col-md-4">
+            <img class="pic-1" src="assets/images/griller10.jpg" >
+        </div>
+        <div class="col-md-4">
+            <img class="pic-1" src="assets/images/griller11.jpg" >
+        </div>
           
       </div>
   </div>

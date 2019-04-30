@@ -26,7 +26,10 @@ export class RenterDashboardComponent implements OnInit {
   grillerDescriptions;
   grillImage
   byType;
-  grillId
+  grillId;
+  ownerId
+  modalShow;
+  modalShow1;
 
   
   showAllProduct: boolean;
@@ -74,8 +77,8 @@ export class RenterDashboardComponent implements OnInit {
     });
   }
 
-  grillerInfo(grillId,grillName,price,grillerDescriptions,grillerType,location,grillImage){
-    console.log("into grillerInfo"+grillName+","+price+","+grillerDescriptions+","+grillerType+","+location);
+  grillerInfo(grillId,grillName,price,grillerDescriptions,grillerType,location,grillImage,ownerId){
+    console.log("into grillerInfo"+grillName+","+price+","+grillerDescriptions+","+grillerType+","+location+","+ownerId);
 
     
     this.grillName=grillName;
@@ -85,7 +88,12 @@ export class RenterDashboardComponent implements OnInit {
     this.price=price;
     this.grillImage=grillImage
     this.grillId=grillId
+    this.ownerId=ownerId
+    sessionStorage.setItem('ownerId',this.ownerId);
 
+    this.modalShow=false;
+    this.modalShow1=false;
+    this.modalShow1=!this.modalShow1;
     
   }
   
@@ -108,6 +116,10 @@ export class RenterDashboardComponent implements OnInit {
 
   dropDownFilter(event){
     console.log("in dropDown: "+event);
+
+    this.modalShow=false;
+    this.modalShow=!this.modalShow;
+    
     if(event!='Choose City'){
       this.user={
         location:event
@@ -151,7 +163,7 @@ searchBarFilter(event){
     }
   
   }
-
+  
   byType1(event){
     this.byType=event;
     if(event!='Choose Type'){
@@ -200,6 +212,7 @@ searchBarFilter(event){
   }
 
   rentGriller(grillId,grillName,price,grillerDescriptions,grillerType,location,grillImage){
+    
     console.log("in rentGrill");
     this.grillName=grillName;
     this.location=location;

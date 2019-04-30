@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ReactiveFormsModule, FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { GrillerService } from "../griller.service";
 import { ActivatedRoute,Router, RouterLink } from "@angular/router";
-
+import {AuthenticationService} from "../_services/authentication.service"
 
 @Component({
   selector: 'app-payment',
@@ -24,8 +24,11 @@ export class PaymentComponent implements OnInit {
   msg;
   showSuccess;
   userOwner;
+   ownerdata;
+   data;
+   ownerDetails;
 
-  constructor(private builder:FormBuilder,private service:GrillerService,private router : Router) {
+  constructor(private builder:FormBuilder,private service:GrillerService,private router : Router,private authenticationService:AuthenticationService ) {
     this.buildForm()
    }
 
@@ -36,6 +39,8 @@ export class PaymentComponent implements OnInit {
     };
 
     this.msg=sessionStorage.getItem('renter');
+    this.ownerdata=sessionStorage.getItem('ownerId');
+    this.getOwnerDetails()
   }
 
 
@@ -88,12 +93,14 @@ export class PaymentComponent implements OnInit {
 
        this.service.fetchOwner(this.user,success=>{
         this.userOwner=success;
+        console.log(this.userOwner)
       });
-        alert("Payments success.  Griller Rent Successfully");
+        // alert("Payments success.  Griller Rent Successfully");
+       
         // this.showSuccess=false;
         // this.showSuccess=!this.showSuccess;
         //   console.log("success"+this.showSuccess);
-        this.router.navigate(['./renter-dashboard']);
+        // this.router.navigate(['./renter-dashboard']);
         }
       })
       
@@ -101,7 +108,10 @@ export class PaymentComponent implements OnInit {
       this.errorMessage = 'Please verify your errors'
     }
   }
-
+  logout() {
+    this.authenticationService.logout();
+    this.router.navigate(['./']);
+  }
 
   periodDropDown(event){
     console.log(event);
@@ -113,5 +123,23 @@ export class PaymentComponent implements OnInit {
     this.showAmount=false;
     this.showAmount=!this.showAmount;
   }
+
+  getOwnerDetails(){
+  this.service.getOwnerDetails(this.ownerdata,result=>{
+this.data=result;
+console.log("Hello"+this.data);
+  })
+
+  }
+
+  showOwner(){
+    this.getOwnerDetails()
+    console.log("in showOwner");
+    this.ownerDetails=false;
+    this.ownerDetails=!this.ownerDetails;
+   this.save()
+   
+  }
+
 
 }
