@@ -113,20 +113,20 @@
           <div class="col-md-10">
             <div class="product-grid2">
               <div class="product-image2">
-                <a href="#">
+                <a>
                   <!-- <img class="card-img-top" src="assets/images/griller10.jpg" alt="Card image cap"> -->
                   <img class="pic-1" src="assets/images/{{success.grillImage}}">
                   <img class="pic-2" src="assets/images/{{success.grillImage}}">
                 </a>
-                <ul class="social">
+                <!-- <ul class="social">
                   <li><a data-tip="Quick View"
                       (click)="grillerInfo(success.grillId,success.grillName,success.price,success.grillerDescriptions,success.grillerType,success.location,success.grillImage)"
                       href="#grillerInfoModal" data-toggle="collapse"><i class="fa fa-eye"></i></a></li>
 
                   <li></li>
-                </ul>
+                </ul> -->
                 <a class="add-to-cart" (click)="grillerInfo(success.grillId,success.grillName,success.price,success.grillerDescriptions,success.grillerType,success.location,success.grillImage,success.ownerId)"
-                href="#grillerInfoModal" data-toggle="collapse">Rent Now</a>
+                href="#grillerInfoModal" data-toggle="collapse">Quick View/Rent Now</a>
               </div>
               <div class="product-content text-success">
                 <h3 class="title"><span class="price text-danger font-weight-bold" >{{success.grillName}}</span></h3>
